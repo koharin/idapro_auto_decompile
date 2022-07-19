@@ -1,6 +1,7 @@
 from idaapi import *
 from idautils import *
 from idc import *
+import json
 
 exclude_func = [
   '_start', 'deregister_tm_clones', 'register_tm_clones',
@@ -8,6 +9,7 @@ exclude_func = [
   '_term_proc', '_init_proc']
 
 result=list()
+form = dict()
 def run_ida_decompiler(fn):
     for seg_start in Segments():
         if idc.get_segm_name(seg_start) == '.text':
@@ -31,10 +33,13 @@ def run_ida_decompiler(fn):
 fn = ida_nalt.get_root_filename()
 run_ida_decompiler(fn)
 buf = '\n'.join(result)
+form["decompile_code"] = buf
+json_object = json.dumps(form, indent=4)
 with open('D:\\koharin\\Decompile\\result.json', 'a') as file: 
-    file.write(buf)
+    #file.write(buf)
+    file.write(json_object)
 file.close()
 
 # close IDA Pro 
-# idc.exit()
-# exit()
+idc.exit()
+exit()
