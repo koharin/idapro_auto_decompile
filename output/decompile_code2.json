@@ -1,0 +1,56 @@
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+  __int64 v4; // [rsp+0h] [rbp-48h]
+  __int64 v5; // [rsp+8h] [rbp-40h]
+  __int64 v6; // [rsp+10h] [rbp-38h]
+  __int64 v7; // [rsp+20h] [rbp-28h]
+  __int64 v8; // [rsp+28h] [rbp-20h]
+  __int64 v9; // [rsp+30h] [rbp-18h]
+  unsigned __int64 v10; // [rsp+38h] [rbp-10h]
+
+  __asm { endbr64 }
+  v10 = __readfsqword(0x28u);
+  v9 = 0LL;
+  v7 = 111516484531540LL;
+  v4 = 111516484531540LL;
+  v8 = 0LL;
+  v5 = 0LL;
+  v6 = 0LL;
+  sub_1090(1LL, "%s %d\n", &v4, 0LL);
+  if ( __readfsqword(0x28u) == v10 )
+    return 0;
+  sub_1080(1LL, "%s %d\n");
+  set_fast_math();
+  return result;
+}
+
+void __cdecl set_fast_math()
+{
+  __asm { endbr64 }
+  _mm_setcsr(_mm_getcsr() | 0x8040);
+}
+
+void __usercall make_word(__m128i *a1@<rdi>, __int64 a2@<rsi>, __int64 a3@<r12>)
+{
+  __m128i v3; // xmm0
+  __int128 v4; // [rsp+0h] [rbp-28h]
+  unsigned int v5; // [rsp+10h] [rbp-18h]
+  int v6; // [rsp+14h] [rbp-14h]
+  unsigned __int64 v7; // [rsp+18h] [rbp-10h]
+  __int64 v8; // [rsp+20h] [rbp-8h]
+
+  __asm { endbr64 }
+  v8 = a3;
+  v7 = __readfsqword(0x28u);
+  sub_1070(&v4, a2, 20LL);
+  v6 = 0;
+  v3 = _mm_load_si128((const __m128i *)&v4);
+  a1[1].m128i_i64[0] = v5;
+  *a1 = v3;
+  if ( __readfsqword(0x28u) != v7 )
+  {
+    sub_1080(&v4, a2);
+    _libc_csu_init();
+  }
+}

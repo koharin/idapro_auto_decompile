@@ -1,0 +1,4 @@
+{
+    "decompile_code": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  signed int v3; // edx\n  int v4; // eax\n  int result; // eax\n  unsigned int v6; // [rsp+0h] [rbp-14h]\n  unsigned __int64 v7; // [rsp+4h] [rbp-10h]\n\n  __asm { endbr64 }\n  v7 = __readfsqword(0x28u);\n  sub_1090(\"%d\", &v6, envp);\n  if ( v6 != 1 )\n  {\n    if ( v6 & 1 )\nLABEL_3:\n      v6 = 3 * v6 + 1;\n    v3 = v6;\n    while ( 1 )\n    {\n      v4 = v3 / 2;\n      v3 = v4;\n      if ( v4 == 1 )\n        break;\n      if ( v4 & 1 )\n      {\n        v6 = v4;\n        goto LABEL_3;\n      }\n    }\n    v6 = 1;\n  }\n  sub_1080(1LL, \"Always result will be : %d\", v6);\n  if ( __readfsqword(0x28u) == v7 )\n    return 0;\n  sub_1070();\n  _libc_csu_init();\n  return result;\n}\n", 
+    "binary_name": "goto"
+}
