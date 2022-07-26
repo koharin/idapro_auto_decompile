@@ -1,0 +1,27 @@
+{
+    "decompileResult": [
+        {
+            "decompiledFuncCode": "__int64 __fastcall sum(int a1, int a2)\n{\n  __int64 v3; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  *((_DWORD *)&v3 - 1) = a1;\n  *((_DWORD *)&v3 - 2) = a2;\n  return (unsigned int)(*((_DWORD *)&v3 - 1) + *((_DWORD *)&v3 - 2));\n}\n", 
+            "funcStartAddr": "0x1149L", 
+            "funcEndAddr": "0x1161L", 
+            "funcName": "sum"
+        }, 
+        {
+            "decompiledFuncCode": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  __int64 v3; // rbp\n  unsigned int v4; // eax\n  __int64 v6; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v6 = v3;\n  v4 = sum(2, 2);\n  sub_1050(&unk_2004, v4);\n  return 0;\n}\n", 
+            "funcStartAddr": "0x1161L", 
+            "funcEndAddr": "0x11a5L", 
+            "funcName": "main"
+        }
+    ], 
+    "binaryInfo": {
+        "binaryName": "function_pointer", 
+        "isStripped": "True"
+    }, 
+    "funcCount": "2", 
+    "buildInfo": {
+        "decompilerName": "IDA Pro", 
+        "compilerVersion": "9.4.0", 
+        "Optlevel": "-O", 
+        "compilerName": "gcc"
+    }
+}

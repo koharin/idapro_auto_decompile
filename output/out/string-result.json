@@ -1,0 +1,27 @@
+{
+    "decompileResult": [
+        {
+            "decompiledFuncCode": "void *__usercall foo@<rax>(__int64 a1@<rbp>, __int64 a2@<rdi>)\n{\n  __int64 v3; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v3 = a1;\n  sub_1070(&a, a2);\n  return &a;\n}\n", 
+            "funcStartAddr": "0x1189L", 
+            "funcEndAddr": "0x11b8L", 
+            "funcName": "foo"
+        }, 
+        {
+            "decompiledFuncCode": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  __int64 v3; // rbp\n  int result; // eax\n  unsigned __int64 v5; // rdx\n  unsigned __int64 v6; // rt1\n  __int64 v7; // [rsp-108h] [rbp-108h]\n  __int16 v8; // [rsp-20h] [rbp-20h]\n  unsigned __int64 v9; // [rsp-10h] [rbp-10h]\n  __int64 v10; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v10 = v3;\n  v9 = __readfsqword(0x28u);\n  sub_1080(\"Hello World\", argv, envp);\n  memset(&v7, 0, 0xE8uLL);\n  v8 = 0;\n  result = 1;\n  v6 = __readfsqword(0x28u);\n  v5 = v9 - v6;\n  if ( v9 != v6 )\n    result = sub_1090(&v8, argv, v5);\n  return result;\n}\n", 
+            "funcStartAddr": "0x11b8L", 
+            "funcEndAddr": "0x1325L", 
+            "funcName": "main"
+        }
+    ], 
+    "binaryInfo": {
+        "binaryName": "string", 
+        "isStripped": "True"
+    }, 
+    "funcCount": "2", 
+    "buildInfo": {
+        "decompilerName": "IDA Pro", 
+        "compilerVersion": "9.4.0", 
+        "Optlevel": "-O", 
+        "compilerName": "gcc"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "decompileResult": [
+        {
+            "decompiledFuncCode": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  __int64 v3; // rbp\n  __int64 v4; // rsi\n  int result; // eax\n  unsigned __int64 v6; // rdx\n  unsigned __int64 v7; // rt1\n  unsigned int v8; // [rsp-14h] [rbp-14h]\n  unsigned __int64 v9; // [rsp-10h] [rbp-10h]\n  __int64 v10; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v10 = v3;\n  v9 = __readfsqword(0x28u);\n  sub_1090(&unk_2004, &v8, envp);\n  if ( v8 != 1 )\n  {\n    if ( v8 & 1 )\n      goto LABEL_8;\n    while ( 1 )\n    {\n      v8 = (signed int)v8 / 2;\n      if ( v8 == 1 )\n        break;\n      if ( v8 & 1 )\nLABEL_8:\n        v8 = 3 * v8 + 1;\n    }\n  }\n  v4 = v8;\n  sub_1080(\"Always result will be : %d\", v8);\n  result = 0;\n  v7 = __readfsqword(0x28u);\n  v6 = v9 - v7;\n  if ( v9 != v7 )\n    result = sub_1070(\"Always result will be : %d\", v4, v6);\n  return result;\n}\n", 
+            "funcStartAddr": "0x1189L", 
+            "funcEndAddr": "0x1245L", 
+            "funcName": "main"
+        }
+    ], 
+    "binaryInfo": {
+        "binaryName": "goto", 
+        "isStripped": "True"
+    }, 
+    "funcCount": "1", 
+    "buildInfo": {
+        "decompilerName": "IDA Pro", 
+        "compilerVersion": "9.4.0", 
+        "Optlevel": "-O", 
+        "compilerName": "gcc"
+    }
+}

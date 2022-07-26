@@ -1,0 +1,21 @@
+{
+    "decompileResult": [
+        {
+            "decompiledFuncCode": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  __int64 v3; // rbp\n  unsigned int v4; // eax\n  int result; // eax\n  unsigned __int64 v6; // rdx\n  unsigned __int64 v7; // rt1\n  int v8; // [rsp-14h] [rbp-14h]\n  unsigned __int64 v9; // [rsp-10h] [rbp-10h]\n  __int64 v10; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v10 = v3;\n  v9 = __readfsqword(0x28u);\n  sub_1090(&unk_2004, &v8, envp);\n  v4 = v8 / 10 - 5;\n  if ( v4 <= 4 )\n    JUMPOUT(__CS__, (char *)dword_2014 + dword_2014[v4]);\n  sub_1070(&unk_2011);\n  result = 0;\n  v7 = __readfsqword(0x28u);\n  v6 = v9 - v7;\n  if ( v9 != v7 )\n    result = sub_1080(&unk_2011, &v8, v6);\n  return result;\n}\n", 
+            "funcStartAddr": "0x1189L", 
+            "funcEndAddr": "0x1287L", 
+            "funcName": "main"
+        }
+    ], 
+    "binaryInfo": {
+        "binaryName": "switch2", 
+        "isStripped": "True"
+    }, 
+    "funcCount": "1", 
+    "buildInfo": {
+        "decompilerName": "IDA Pro", 
+        "compilerVersion": "9.4.0", 
+        "Optlevel": "-O", 
+        "compilerName": "gcc"
+    }
+}
