@@ -40,6 +40,8 @@ def run_ida_decompiler():
                         fail += 1
             form["funcCount"] = str(len(func))
 
+# wait until ida pro analysis complete
+idaapi.autoWait()
 form = dict()
 func = list()
 binary = dict()
