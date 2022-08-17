@@ -1,21 +1,22 @@
 from idaapi import *
 from idautils import *
 from idc import *
+from ida_auto import *
 import json
 
-exclude_func = [
-  'deregister_tm_clones', 'register_tm_clones',
-  '__do_global_dtors_aux', 'frame_dummy']
+exclude_func = [ '_start', 'deregister_tm_clones', 'register_tm_clones',
+  '__do_global_dtors_aux', 'frame_dummy', '__libc_csu_init', '__libc_csu_fini',
+  '_fini', '_init', '__gmon_start__']
 
 def run_ida_decompiler():
     global fail
     for seg_start in Segments():
         if get_segm_name(seg_start) == '.text':
-            for f_ea in Functions(seg_start, SegEnd(seg_start)):
+            for f_ea in Functions(seg_start, idc.get_segm_end(seg_start)):
                 tmp = dict()
                 result=list()
                 f = idaapi.get_func(f_ea)
-                fname = GetFunctionName(f_ea)             
+                fname = idc.get_func_name(f_ea)             
                 if f is None:
                     print ("Failed to obtain the function@0x%08x" % (f_ea))
                 
@@ -40,13 +41,10 @@ def run_ida_decompiler():
                         fail += 1
             form["funcCount"] = str(len(func))
 
-# wait until ida pro analysis complete
-idaapi.autoWait()
 form = dict()
 func = list()
 binary = dict()
 build = dict()
-fail=0
 
 # set binary info
 filename = ida_nalt.get_root_filename()
@@ -55,11 +53,8 @@ binary["isStripped"] = "True"
 form["binaryInfo"] = binary
 
 # set decompile result
-entire = len(func) + fail
 form["decompileResult"] = func
 form['funcCount']=len(func) 
-form["recognizedCount"] = entire
-form["failedCount"] = fail
 
 # set build info
 build["decompilerName"] = "IDA Pro"
@@ -67,6 +62,9 @@ build["compilerName"] = "gcc"
 build["compilerVersion"] = "9.4.0"
 build["Optlevel"] = "-O"
 form["buildInfo"] = build
+
+# wait until idapro analysis done
+ida_auto.auto_wait()
 
 # run ida decompiler
 text = open("D:\\koharin\\Decompile\\ground\\{0}.txt".format(filename), 'w')
@@ -80,4 +78,4 @@ with open("D:\\koharin\\Decompile\\output\\{0}-result.json".format(filename), 'w
     file.write(json_object)
     file.close()
 text.close()
-idc.Exit(0)
+idc.qexit(0)
