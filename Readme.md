@@ -15,9 +15,9 @@
 
 # Usage
 ```bash
-.\idat64.exe -A -S"path\to\headlessscipt.py" path\to\binary
+.\idat64.exe -A -S"path\\to\\script.py" "path\\to\\binary"
 ```
 ```bash
-.\ida64.exe -A -S"path\to\headlessscipt.py" path\to\binary
+.\ida64.exe -A -S"path\\to\\scipt.py" "path\\to\\binary"
 ```
 - need to give a target binary path with double quotes
