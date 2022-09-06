@@ -20,3 +20,4 @@
 ```bash
 .\ida64.exe -A -S"path\to\headlessscipt.py" path\to\binary
 ```
+- need to give a target binary path with double quotes
