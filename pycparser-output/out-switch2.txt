@@ -1,0 +1,89 @@
+FileAST: 
+  FuncDef: 
+    Decl: main, [], [], [], []
+      FuncDecl: 
+        ParamList: 
+          Decl: argc, [], [], [], []
+            TypeDecl: argc, [], None
+              IdentifierType: ['int']
+          Decl: argv, ['const'], [], [], []
+            PtrDecl: []
+              PtrDecl: []
+                TypeDecl: argv, ['const'], None
+                  IdentifierType: ['char']
+          Decl: envp, ['const'], [], [], []
+            PtrDecl: []
+              PtrDecl: []
+                TypeDecl: envp, ['const'], None
+                  IdentifierType: ['char']
+        TypeDecl: main, [], None
+          IdentifierType: ['int']
+    Compound: 
+      Decl: v4, [], [], [], []
+        TypeDecl: v4, [], None
+          IdentifierType: ['int']
+      Decl: v5, [], [], [], []
+        TypeDecl: v5, [], None
+          IdentifierType: ['unsigned', 'long', 'long']
+      Assignment: =
+        ID: v5
+        FuncCall: 
+          ID: __readfsqword
+          ExprList: 
+            Constant: unsigned int, 0x28u
+      FuncCall: 
+        ID: __isoc99_scanf
+        ExprList: 
+          UnaryOp: &
+            ID: unk_2004
+          UnaryOp: &
+            ID: v4
+          ID: envp
+      Switch: 
+        BinaryOp: /
+          ID: v4
+          Constant: int, 10
+        Compound: 
+          Case: 
+            Constant: int, 5
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "E"
+            Break: 
+          Case: 
+            Constant: int, 6
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "D"
+            Break: 
+          Case: 
+            Constant: int, 7
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "C"
+            Break: 
+          Case: 
+            Constant: int, 8
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "B"
+            Break: 
+          Case: 
+            Constant: int, 9
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "A"
+            Break: 
+          Default: 
+            FuncCall: 
+              ID: puts
+              ExprList: 
+                Constant: string, "F"
+            Break: 
+      Return: 
+        Constant: int, 0
