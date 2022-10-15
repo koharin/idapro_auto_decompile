@@ -1,21 +1,49 @@
 {
-    "decompileResult": [
-        {
-            "decompiledFuncCode": "int __cdecl main(int argc, const char **argv, const char **envp)\n{\n  __int64 v3; // rbp\n  unsigned int v4; // eax\n  int result; // eax\n  unsigned __int64 v6; // rdx\n  unsigned __int64 v7; // rt1\n  int v8; // [rsp-14h] [rbp-14h]\n  unsigned __int64 v9; // [rsp-10h] [rbp-10h]\n  __int64 v10; // [rsp-8h] [rbp-8h]\n\n  __asm { endbr64 }\n  v10 = v3;\n  v9 = __readfsqword(0x28u);\n  sub_1090(&unk_2004, &v8, envp);\n  v4 = v8 / 10 - 5;\n  if ( v4 <= 4 )\n    JUMPOUT(__CS__, (char *)dword_2014 + dword_2014[v4]);\n  sub_1070(&unk_2011);\n  result = 0;\n  v7 = __readfsqword(0x28u);\n  v6 = v9 - v7;\n  if ( v9 != v7 )\n    result = sub_1080(&unk_2011, &v8, v6);\n  return result;\n}\n", 
-            "funcStartAddr": "0x1189L", 
-            "funcEndAddr": "0x1287L", 
-            "funcName": "main"
-        }
-    ], 
     "binaryInfo": {
-        "binaryName": "switch2", 
+        "binaryName": "switch2",
         "isStripped": "True"
-    }, 
-    "funcCount": "1", 
+    },
+    "funcInfo": [
+        {
+            "funcName": "start",
+            "funcStartAddr": "0x10a0",
+            "funcEndAddr": "0x10c6",
+            "decompiledFuncCode": "// positive sp value has been detected, the output may be wrong!\nvoid __fastcall __noreturn start(__int64 a1, __int64 a2, void (*a3)(void))\n{\n  __int64 v3; // rax\n  int v4; // esi\n  __int64 v5; // [rsp-8h] [rbp-8h] BYREF\n  char *retaddr; // [rsp+0h] [rbp+0h] BYREF\n\n  v4 = v5;\n  v5 = v3;\n  _libc_start_main(main, v4, &retaddr, 0LL, 0LL, a3, &v5);\n  __halt();\n}\n"
+        },
+        {
+            "funcName": "sub_10D0",
+            "funcStartAddr": "0x10d0",
+            "funcEndAddr": "0x10f9",
+            "decompiledFuncCode": "char *sub_10D0()\n{\n  return &byte_4010;\n}\n"
+        },
+        {
+            "funcName": "sub_1100",
+            "funcStartAddr": "0x1100",
+            "funcEndAddr": "0x1139",
+            "decompiledFuncCode": "__int64 sub_1100()\n{\n  return 0LL;\n}\n"
+        },
+        {
+            "funcName": "sub_1140",
+            "funcStartAddr": "0x1140",
+            "funcEndAddr": "0x1179",
+            "decompiledFuncCode": "char *sub_1140()\n{\n  char *result; // rax\n\n  if ( !byte_4010 )\n  {\n    if ( &__cxa_finalize )\n      _cxa_finalize(off_4008);\n    result = sub_10D0();\n    byte_4010 = 1;\n  }\n  return result;\n}\n"
+        },
+        {
+            "funcName": "sub_1180",
+            "funcStartAddr": "0x1180",
+            "funcEndAddr": "0x1189",
+            "decompiledFuncCode": "// attributes: thunk\n__int64 sub_1180()\n{\n  return sub_1100();\n}\n"
+        },
+        {
+            "funcName": "main",
+            "funcStartAddr": "0x1189",
+            "funcEndAddr": "0x1287",
+            "decompiledFuncCode": "__int64 __fastcall main(int a1, char **a2, char **a3)\n{\n  int v4; // [rsp+4h] [rbp-Ch] BYREF\n  unsigned __int64 v5; // [rsp+8h] [rbp-8h]\n\n  v5 = __readfsqword(0x28u);\n  __isoc99_scanf(&unk_2004, &v4, a3);\n  switch ( v4 / 10 )\n  {\n    case 5:\n      puts(\"E\");\n      break;\n    case 6:\n      puts(\"D\");\n      break;\n    case 7:\n      puts(\"C\");\n      break;\n    case 8:\n      puts(\"B\");\n      break;\n    case 9:\n      puts(\"A\");\n      break;\n    default:\n      puts(\"F\");\n      break;\n  }\n  return 0LL;\n}\n"
+        }
+    ],
     "buildInfo": {
-        "decompilerName": "IDA Pro", 
-        "compilerVersion": "9.4.0", 
-        "Optlevel": "-O", 
-        "compilerName": "gcc"
+        "decompilerName": "IDA Pro",
+        "compilerName": "gcc",
+        "Optlevel": "-O"
     }
 }
