@@ -27,13 +27,13 @@ def run_ida_decompiler():
                     except:
                         print ("Failed to attempt decompilation of the function@0x%08x" % (f_ea))
 
+# wait until ida analysis done
+ida_auto.auto_wait()
+
 result=list()
 
 # set binary info
 filename = ida_nalt.get_root_filename()
-
-# wait until ida analysis done
-ida_auto.auto_wait()
 
 # run ida decompiler
 run_ida_decompiler()
@@ -45,3 +45,4 @@ with open("D:\\koharin\\Decompile\\output\\{0}.c".format(filename), 'w') as file
     file.close()
 
 idc.qexit(0)
+exit(0)
