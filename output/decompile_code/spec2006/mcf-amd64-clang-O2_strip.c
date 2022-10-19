@@ -44,8 +44,9 @@ __int64 sub_400A10()
 __int64 __fastcall sub_400A20(double a1)
 {
   __int64 v1; // r14
-  __int64 v2; // rcx
-  __int64 v3; // rbx
+  double v2; // xmm0_8
+  __int64 v3; // rcx
+  __int64 v4; // rbx
 
   v1 = -6LL;
   while ( 1 )
@@ -53,21 +54,21 @@ __int64 __fastcall sub_400A20(double a1)
     printf("active arcs                : %ld\n", qword_407E58);
     sub_4027B0(dest);
     printf("simplex iterations         : %ld\n", qword_407F08);
-    sub_400DA0(dest);
-    printf("objective value            : %0.0f\n", a1);
+    v2 = sub_400DA0(dest);
+    printf("objective value            : %0.0f\n", v2);
     if ( !++v1 )
       break;
     if ( qword_407E68 )
     {
-      v2 = sub_402090(dest, -1LL, 0LL);
-      if ( v2 )
-        printf("erased arcs                : %ld\n", v2);
+      v3 = sub_402090(dest, -1LL, 0LL);
+      if ( v3 )
+        printf("erased arcs                : %ld\n", v3);
     }
-    v3 = sub_401A80(dest);
-    if ( !v3 )
+    v4 = sub_401A80(dest);
+    if ( !v4 )
       break;
-    printf("new implicit arcs          : %ld\n", v3);
-    if ( v3 < 0 )
+    printf("new implicit arcs          : %ld\n", v4);
+    if ( v4 < 0 )
     {
       puts("not enough memory, exit(-1)");
       exit(-1);
@@ -77,13 +78,12 @@ __int64 __fastcall sub_400A20(double a1)
   return 0LL;
 }
 
-__int64 __fastcall main(int a1, char **a2, char **a3)
+__int64 __fastcall main(int a1, char **a2, char **a3, double a4)
 {
-  unsigned int v3; // ebp
-  double v4; // xmm0_8
+  unsigned int v4; // ebp
   __int64 v5; // rbx
 
-  v3 = -1;
+  v4 = -1;
   if ( a1 >= 2 )
   {
     puts("\nMCF SPEC CPU2006 version 1.10");
@@ -94,7 +94,7 @@ __int64 __fastcall main(int a1, char **a2, char **a3)
     memset(dest, 0, 0x270uLL);
     qword_407EC0 = 10000000LL;
     strcpy(dest, a2[1]);
-    if ( sub_401310(dest) )
+    if ( sub_401310((__int64)dest) )
     {
       puts("read error, exit");
       sub_4012C0(dest);
@@ -102,15 +102,15 @@ __int64 __fastcall main(int a1, char **a2, char **a3)
     else
     {
       printf("nodes                      : %ld\n", qword_407E48);
-      v4 = sub_402190(dest);
-      sub_400A20(v4);
+      sub_402190(dest);
+      sub_400A20(a4);
       puts("done");
       v5 = sub_402340("mcf.out", dest);
       sub_4012C0(dest);
       return (unsigned int)-(v5 != 0);
     }
   }
-  return v3;
+  return v4;
 }
 
 unsigned __int64 __fastcall sub_400C00(_QWORD *a1)
@@ -1310,12 +1310,12 @@ LABEL_16:
 
 __int64 __fastcall sub_402490(
         __int64 a1,
-        int a2,
+        __int32 a2,
         __int64 a3,
         __int64 a4,
-        __int64 a5,
+        const __m128i *a5,
         const __m128i *a6,
-        __int64 a7,
+        const __m128i *a7,
         const __m128i *a8,
         const __m128i *a9,
         __int64 a10,
@@ -1326,16 +1326,16 @@ __int64 __fastcall sub_402490(
   const __m128i *v13; // rax
   __int64 v14; // r11
   __int64 v15; // r11
-  __int64 v16; // r13
+  const __m128i *v16; // r13
   __int64 result; // rax
   __int64 v18; // rbx
-  unsigned __int64 v19; // r11
+  __int64 v19; // r11
   __int64 v20; // rbx
-  __int64 v21; // r10
+  const __m128i *v21; // r10
   __int64 v22; // r14
-  __int64 v23; // rbp
+  __m128i *v23; // rbp
   bool v24; // zf
-  _QWORD *v25; // rbp
+  __m128i *v25; // rbp
   __int64 v26; // rbp
   __int64 v27; // r15
   __int64 v28; // rbp
@@ -1348,7 +1348,7 @@ __int64 __fastcall sub_402490(
 
   v12 = a10;
   v13 = *(const __m128i **)(a10 + 8);
-  if ( a11 < 0 && v13 == a6 || a11 > 0 && v13 == (const __m128i *)a5 )
+  if ( a11 < 0 && v13 == a6 || a11 > 0 && v13 == a5 )
   {
     v14 = -a11;
     if ( -a11 < 1 )
@@ -1361,8 +1361,8 @@ __int64 __fastcall sub_402490(
       v15 = a11;
     v14 = -v15;
   }
-  v16 = (__int64)a8;
-  result = a7;
+  v16 = a8;
+  result = (__int64)a7;
   do
   {
 LABEL_12:
@@ -1371,37 +1371,37 @@ LABEL_12:
     result = *(_QWORD *)(result + 16);
   }
   while ( result );
-  while ( v18 != a7 )
+  while ( (const __m128i *)v18 != a7 )
   {
     result = *(_QWORD *)(v18 + 32);
     if ( result )
       goto LABEL_12;
     v18 = *(_QWORD *)(v18 + 24);
   }
-  v19 = *(_QWORD *)(a7 + 88);
-  if ( (const __m128i *)a5 != a8 )
+  v19 = a7[5].m128i_i64[1];
+  if ( a5 != a8 )
   {
-    v20 = *(_QWORD *)(a7 + 88);
-    v21 = (__int64)a6;
+    v20 = a7[5].m128i_i64[1];
+    v21 = a6;
     do
     {
-      result = a5;
-      a5 = *(_QWORD *)(a5 + 24);
+      result = (__int64)a5;
+      a5 = (const __m128i *)a5[1].m128i_i64[1];
       v22 = *(_QWORD *)(result + 32);
       if ( v22 )
         *(_QWORD *)(v22 + 40) = *(_QWORD *)(result + 40);
-      v23 = *(_QWORD *)(result + 40);
-      v24 = v23 == 0;
-      v25 = (_QWORD *)(v23 + 32);
+      v23 = *(__m128i **)(result + 40);
+      v24 = v23 == 0LL;
+      v25 = v23 + 2;
       if ( v24 )
-        v25 = (_QWORD *)(a5 + 16);
-      *v25 = v22;
+        v25 = (__m128i *)&a5[1];
+      v25->m128i_i64[0] = v22;
       *(_QWORD *)(result + 24) = v21;
-      v26 = *(_QWORD *)(v21 + 16);
+      v26 = v21[1].m128i_i64[0];
       *(_QWORD *)(result + 32) = v26;
       if ( v26 )
         *(_QWORD *)(v26 + 40) = result;
-      *(_QWORD *)(v21 + 16) = result;
+      v21[1].m128i_i64[0] = result;
       *(_QWORD *)(result + 40) = 0LL;
       v27 = *(_DWORD *)(result + 8) == 0;
       v28 = -a3;
@@ -1417,18 +1417,18 @@ LABEL_12:
       v20 = v19 - v31;
       a2 = v27;
       a4 = v29;
-      v21 = result;
+      v21 = (const __m128i *)result;
       v12 = v30;
     }
-    while ( (const __m128i *)a5 != a8 );
+    while ( a5 != a8 );
   }
   if ( a3 <= a12 )
   {
     result = (__int64)a9;
-    while ( (const __m128i *)v16 != a9 )
+    while ( v16 != a9 )
     {
-      *(_QWORD *)(v16 + 88) -= v19;
-      v16 = *(_QWORD *)(v16 + 24);
+      v16[5].m128i_i64[1] -= v19;
+      v16 = (const __m128i *)v16[1].m128i_i64[1];
     }
     while ( a6 != a9 )
     {
@@ -1443,14 +1443,14 @@ LABEL_12:
       result = -a3;
       do
       {
-        *(_QWORD *)(v16 + 88) -= v19;
+        v16[5].m128i_i64[1] -= v19;
         v32 = a3;
-        if ( *(_DWORD *)(v16 + 8) == a1 )
+        if ( v16->m128i_i32[2] == a1 )
           v32 = -a3;
-        *(_QWORD *)(v16 + 80) += v32;
-        v16 = *(_QWORD *)(v16 + 24);
+        v16[5].m128i_i64[0] += v32;
+        v16 = (const __m128i *)v16[1].m128i_i64[1];
       }
-      while ( (const __m128i *)v16 != a9 );
+      while ( v16 != a9 );
     }
     if ( a6 != a9 )
     {
@@ -1461,7 +1461,7 @@ LABEL_12:
         v34 = a3;
         if ( a6->m128i_i32[2] != a1 )
           v34 = -a3;
-        a6[5] = _mm_add_epi64(_mm_unpacklo_epi64((__m128i)(unsigned __int64)v34, (__m128i)v19), v33);
+        a6[5] = _mm_add_epi64(_mm_unpacklo_epi64((__m128i)(unsigned __int64)v34, (__m128i)(unsigned __int64)v19), v33);
         a6 = (const __m128i *)a6[1].m128i_i64[1];
       }
       while ( a6 != a9 );
@@ -1558,13 +1558,13 @@ __int64 __fastcall sub_4027B0(_QWORD *a1)
 {
   __int64 v2; // rdi
   __int64 v3; // rsi
-  __int64 v4; // r12
-  __int64 i; // rdx
+  unsigned __int64 v4; // r12
+  unsigned __int64 i; // rdx
   __int64 v6; // r13
   __int64 *v7; // rcx
-  __int64 *v8; // rdx
+  const __m128i **v8; // rdx
   __int64 v9; // r14
-  __int64 v10; // rbp
+  const __m128i *v10; // rbp
   __int64 v11; // rax
   __int64 v12; // rdi
   const __m128i *v13; // r9
@@ -1591,23 +1591,23 @@ __int64 __fastcall sub_4027B0(_QWORD *a1)
       break;
     ++a1[75];
     v7 = (__int64 *)(v6 + 8);
-    v8 = (__int64 *)(v6 + 16);
+    v8 = (const __m128i **)(v6 + 16);
     if ( v19 > 0 )
-      v8 = (__int64 *)(v6 + 8);
+      v8 = (const __m128i **)(v6 + 8);
     if ( v19 > 0 )
       v7 = (__int64 *)(v6 + 16);
     v9 = *v7;
     v10 = *v8;
     v20 = 1LL;
-    v11 = sub_4026A0(&v20, v24, v9, v10, &v21);
+    v11 = sub_4026A0(&v20, v24, v9, (__int64)v10, &v21);
     if ( v11 )
     {
       v12 = 0LL;
       v13 = (const __m128i *)v9;
       if ( !v24[0] )
-        v13 = (const __m128i *)v10;
+        v13 = v10;
       if ( !v24[0] )
-        v10 = v9;
+        v10 = (const __m128i *)v9;
       v14 = *(_QWORD *)(v11 + 48);
       v15 = (v24[0] == *(_DWORD *)(v11 + 8)) + 1;
       v16 = 1 - v20;
@@ -1616,12 +1616,12 @@ __int64 __fastcall sub_4027B0(_QWORD *a1)
       LOBYTE(v12) = v24[0] == 0;
       sub_402490(
         v12,
-        *(_QWORD *)(v6 + 8) == v10,
+        *(_QWORD *)(v6 + 8) == (_QWORD)v10,
         v20,
         v16,
         v10,
         v13,
-        v11,
+        (const __m128i *)v11,
         *(const __m128i **)(v11 + 24),
         v21,
         v6,
@@ -1644,7 +1644,7 @@ __int64 __fastcall sub_4027B0(_QWORD *a1)
       ++a1[76];
       *(_DWORD *)(v6 + 24) = 2 - (*(_DWORD *)(v6 + 24) == 2);
       if ( v20 )
-        sub_402760(v9, v10, (__int64)v21);
+        sub_402760(v9, (__int64)v10, (__int64)v21);
     }
     v2 = v23;
     v3 = v22;
@@ -1673,7 +1673,7 @@ __int64 __fastcall sub_4029D0(__int64 a1, __int64 a2)
 
   do
   {
-    v3 = *(_QWORD *)(*(__int64 *)((char *)&qword_4050B0
+    v3 = *(_QWORD *)(*(__int64 *)((char *)qword_4050B0
                                 + 4 * ((a1 + a2 + ((unsigned __int64)(a1 + a2) >> 63)) & 0x3FFFFFFFFFFFFFFELL))
                    + 16);
     v4 = a2;
@@ -1708,7 +1708,7 @@ __int64 __fastcall sub_4029D0(__int64 a1, __int64 a2)
     v14 = v9 - v13;
     v15 = v6 + v13;
     if ( v14 > a1 )
-      result = sub_4029D0(a1);
+      result = sub_4029D0(a1, v14);
     if ( v15 >= a2 )
       break;
     a1 = v15;
